@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import {
   InfoBook,
@@ -10,22 +10,19 @@ import {
 export function useReadingBooks() {
   const [readingBooks, setReadingBooks] = useState<InfoBook[]>([])
 
-  const handleStorage = useCallback(() => {
+  const handleStorage = () => {
     setReadingBooks(getReadingBooks)
-  }, [])
+  }
 
-  const addBookToReadingBooks = useCallback(({ book }: { book: InfoBook }) => {
+  const addBookToReadingBooks = ({ book }: { book: InfoBook }) => {
     addReadingBook({ book })
     handleStorage()
-  }, [])
+  }
 
-  const removeBookToReadingBooks = useCallback(
-    ({ book }: { book: InfoBook }) => {
-      removeReadingBook({ book })
-      handleStorage()
-    },
-    []
-  )
+  const removeBookToReadingBooks = ({ book }: { book: InfoBook }) => {
+    removeReadingBook({ book })
+    handleStorage()
+  }
 
   useEffect(handleStorage, [])
 
