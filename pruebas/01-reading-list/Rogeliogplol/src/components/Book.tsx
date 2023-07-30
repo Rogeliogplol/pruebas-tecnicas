@@ -1,24 +1,39 @@
+import { twMerge } from 'tailwind-merge'
+
 import type { InfoBook } from '../services/books'
+import AddButton from './AddButton'
+import RemoveButton from './RemoveButton'
 
 interface BookProps {
   book: InfoBook
-  onClick?: React.MouseEventHandler<HTMLImageElement>
+  onClick?: React.MouseEventHandler
+  className?: string
+  generalList?: boolean
 }
 
-export function Book({ book, onClick }: BookProps) {
-  const className = 'w-full h-auto'
-  const ImgExtraProps: React.DetailedHTMLProps<
+export function Book({
+  book,
+  onClick,
+  className,
+  generalList = true
+}: BookProps) {
+  const ImgProps: React.DetailedHTMLProps<
     React.ImgHTMLAttributes<HTMLImageElement>,
     HTMLImageElement
   > = {
     src: book.cover,
-    alt: book.title,
-    className
+    alt: book.title
   }
 
-  if (onClick !== undefined) {
-    ImgExtraProps.onClick = onClick
-  }
+  return (
+    <div className="relative h-full p-3 flex flex-col gap-3 bg-gray-700 rounded-lg">
+      <img
+        {...ImgProps}
+        className={twMerge('w-full h-auto rounded-lg', className)}
+      />
 
-  return <img {...ImgExtraProps} />
+      {generalList && <AddButton disabled={book.reading} onClick={onClick} />}
+      {!generalList && <RemoveButton onClick={onClick} />}
+    </div>
+  )
 }

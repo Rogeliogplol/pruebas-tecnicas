@@ -24,7 +24,7 @@ export function Books() {
           </h3>
         )}
 
-        <ul className="grid place-items-start grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 xl:gap-8">
+        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4 xl:gap-8">
           {books.map((book) => (
             <li key={book.ISBN}>
               <Book
@@ -41,10 +41,11 @@ export function Books() {
       {readingBooks.length > 0 && (
         <div className="bg-gray-800 text-white p-4 lg:p-8 rounded-lg">
           <h2 className="text-4xl font-bold mb-3 xl:mb-6">Lista de lectura</h2>
-          <ul className="grid place-items-start grid-cols-2 gap-4 xl:grid-cols-3">
+          <ul className="grid grid-cols-2 gap-4 xl:grid-cols-3">
             {readingBooks.map((book) => (
               <li key={`reading-book-${book.ISBN}`}>
                 <Book
+                  generalList={false}
                   book={book}
                   onClick={() => {
                     removeBookToReadingBooks({ book })
