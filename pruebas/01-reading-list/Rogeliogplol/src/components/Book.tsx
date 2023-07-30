@@ -1,8 +1,8 @@
 import { twMerge } from 'tailwind-merge'
 
 import type { InfoBook } from '../services/books'
-import AddButton from './AddButton'
-import RemoveButton from './RemoveButton'
+import AddButton from './Buttons/AddButton'
+import RemoveButton from './Buttons/RemoveButton'
 
 interface BookProps {
   book: InfoBook
@@ -37,3 +37,5 @@ export function Book({
     </div>
   )
 }
+
+export default Book

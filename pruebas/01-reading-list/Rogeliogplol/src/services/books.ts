@@ -15,11 +15,15 @@ export type InfoBook = {
   reading: boolean
 }
 
-export function getBooks(): InfoBook[] {
-  const readinBooks = getReadingBooks()
-  const localBooks = books.library
+export type FiltersType = {
+  pages?: number
+  genre?: string
+}
 
-  return localBooks.map(({ book }) => {
+export function getBooks(filters: FiltersType): InfoBook[] {
+  const readinBooks = getReadingBooks()
+
+  let localBooks = books.library.map(({ book }) => {
     const readingBook = readinBooks.find(
       (readingBook) => readingBook.ISBN === book.ISBN
     )
@@ -29,6 +33,17 @@ export function getBooks(): InfoBook[] {
       reading: readingBook !== undefined
     }
   })
+
+  // apply filters
+  if (filters.pages) {
+    localBooks = localBooks.filter((book) => book.pages >= filters.pages)
+  }
+
+  if (filters.genre) {
+    localBooks = localBooks.filter((book) => book.genre === filters.genre)
+  }
+
+  return localBooks
 }
 
 export function getReadingBooks(): InfoBook[] {
@@ -57,4 +72,12 @@ export function removeReadingBook({ book }: { book: InfoBook }) {
 
   readingBooks.splice(index, 1)
   window.localStorage.setItem('readingBooks', JSON.stringify(readingBooks))
+}
+
+export function getGenres(): string[] {
+  const localBooks = books.library
+
+  const genres = localBooks.map(({ book }) => book.genre)
+
+  return [...new Set(genres)]
 }

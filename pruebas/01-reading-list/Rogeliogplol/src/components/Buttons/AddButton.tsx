@@ -1,6 +1,6 @@
 import Button from './Button'
 
-export default function AddButton({
+export function AddButton({
   disabled = false,
   onClick
 }: {
@@ -24,3 +24,5 @@ export default function AddButton({
     </Button>
   )
 }
+
+export default AddButton

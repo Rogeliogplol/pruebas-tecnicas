@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
 
-export default function Button({
+export function Button({
   disabled = false,
   onClick,
   children
@@ -21,3 +21,5 @@ export default function Button({
     </button>
   )
 }
+
+export default Button
